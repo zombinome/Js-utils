@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+</head>
+<body>
+
+    <p id="result"></p>
+
+	<script type="text/javascript" src="NumberFormatting.js"></script>
+    <script type="text/javascript">
+        var formats = [/*'0.00',*/ '#.##', /*'0.##', '#.00', '#.0#', '.00'*/]; 
+		console.log('format', 0, 1, 0.7, 1.7)
+		for(var i in formats){
+			var format = formats[i];
+			var v1 = (0).toFormattedString(format);
+			var v2 = (1).toFormattedString(format);
+			var v3 = (0.7).toFormattedString(format);
+			var v4 = (1.7).toFormattedString(format);
+			
+			console.log(format + ': ', v1, v2, v3, v4);
+		}
+    </script>
+
+</body>
+</html>
