@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <div id="page-template" style="display: none;">
+        {for var i in _ }
+        <p>{:i}</p>
+        {end}
+
+        {if _.length > 1}
+        <p>{length}</p>
+        {else}
+        <p>Nothing</p>
+        {end}
+
+    </div>
+
+    <!--
+    //###### 1
+
+        {for var i in it}
+        <p>{i}</p>
+       "'}; out += '"
+
+        {if it.length > 1}
+        <p>{it.length}</p>
+       "'} else { out += '"
+        <p>Nothing</p>
+       "'} out += '"
+
+//###### 2
+       "var out = '"
+       "'; for (var i in it) { out += '"                // {for var i in it }
+        <p>{i}</p>                                      // <p>{i}</p>
+       "'}; out += '"                                   // {end}
+
+       "'; if (it.length > 1) { out += '"               // {if it.length > 1}
+        <p>{it.length}</p>                              // <p>{it.length}</p>
+       "'} else { out += '"                             // {else}
+        <p>Nothing</p>                                  // <p>Nothing</p>
+       "'}; out += '"                                   // {end}
+       "';"
+
+//####### 3
+        var out = '
+        '; for (var i in it) { out += '                // {for var i in it }
+        <p>" + i + "</p>                               // <p>{i}</p>
+        '; } out += '                                   // {end}
+
+        '; if (it.length > 1) { out += '               // {if it.length > 1}
+        <p>' + it.length + '</p>                       // <p>{it.length}</p>
+        '; } else { out += '                            // {else}
+        <p>Nothing</p>                                 // <p>Nothing</p>
+        '; } out += '                                   // {end}
+        ';
+
+        var out='';for(var i in it){out+='<p>'+i+'</p>';}out+='';if(lt.length>1){out+='<p>'+it.length+'</p>';}else{out+='<p>Nothing</p>';}out+='';
+        var out='';for(var i in it){out+='<p>'+i+'</p>';}if(lt.length>1){out+='<p>'+it.length+'</p>';}else{out+='<p>Nothing</p>';};
+
+
+        for (var i in it) {
+            out += '<p>' + i + '</p>';
+        }
+
+        if (it.length > 1) {
+            out += '<p>' + it.length + '</p>';
+        } else {
+            out += '<p>Nothing</p>';
+        }
+    -->
+
+    <div id="result"></div>
+<script type="text/javascript" src="TemplateCompiler.js"></script>
+<script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+    var c = new TemplateCompiler();
+
+    var templateStr = $('#page-template').html();
+    var templateCmp = c.render(templateStr, ['qwe', 'rty']);
+    $('#result').html(templateCmp);
+});
+</script>
+
+</body>
+</html>
