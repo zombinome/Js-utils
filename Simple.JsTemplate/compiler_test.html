@@ -10,11 +10,18 @@
         {end}
 
         {if _.length > 1}
-        <p>{length}</p>
+        <p>Length: {length}</p>
         {else}
         <p>Nothing</p>
         {end}
 
+    </div>
+
+    <div id="model-template" style="display: none">
+        {for var i = 0; i < _.length; i++}
+        {var item = _[i]; }
+        <p id="item-{:i}">{:item.name}: {:item.value}</p>
+        {end}
     </div>
 
     <!--
@@ -72,6 +79,8 @@
     -->
 
     <div id="result"></div>
+    <hr />
+    <div id="result2" style=""></div>
 <script type="text/javascript" src="TemplateCompiler.js"></script>
 <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.0.min.js"></script>
 <script type="text/javascript">
@@ -81,6 +90,15 @@ $(document).ready(function () {
     var templateStr = $('#page-template').html();
     var templateCmp = c.render(templateStr, ['qwe', 'rty']);
     $('#result').html(templateCmp);
+
+    var model = [
+        { name: 'url', value: 'http://google.com' },
+        { name: 'type', value: 'search engine' }
+    ];
+
+    templateStr = $('#model-template').html();
+    templateCmp = c.render(templateStr, model);
+    $('#result2').html(templateCmp);
 });
 </script>
 

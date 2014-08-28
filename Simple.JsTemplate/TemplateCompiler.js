@@ -32,14 +32,16 @@ function TemplateCompiler() {
         if (!template) return '';
 
         fn[template] = fn[template] || new Function("_", "entitiesMap",
-            "var out = '" +
+            "var out='" +
                 (template
                     .replace(/(&lt\;|&gt\;|&amp\;|&quot\;|\{else\}|\{end\})/g, function(token) { return commandsMap[token]; })
+                    .replace(/{var\s+([^\{\}]+)\s*}/g, "'; var $1; out+='")
                     .replace(/\{(\w+)\s+([^\{\}]+)\}/g, "'; $1($2) { out+='")
-                    .replace(/\{:\s*(\w+)\s*\}/g, "' + $1 + '")
-                    .replace(/\{\s*(\w+)\s*\}/g, "'+(_.$1?(_.$1+'').replace(/[&\"<>]/g,function(e){ return entitiesMap[e];}):(_.$1===0?0:''))+'") +
-                "'; return out;")
+                    .replace(/\{:\s*([^\{\}]+)\s*\}/g, "'+$1+'")
+                    .replace(/\{\s*(\w+)\s*\}/g, "'+(_.$1?(_.$1+'').replace(/[&\"<>]/g,function(e){return entitiesMap[e];}):(_.$1===0?0:''))+'") +
+                "';return out;")
                     .replace(/(\n)+\s*/g, '')
+                    .replace(/ out\+='';/g, '')
         );
 
         return fn[template];
@@ -50,4 +52,8 @@ function TemplateCompiler() {
     };
 
     return this;
+}
+
+function temp() {
+//var out = ''; for(var i = 0; i < _.length; i++) { out+='' + var item = _[i];  + '<p id="item-' + i + '">' + item.name + ': ' + item.value + '</p>';} return out;
 }
